@@ -5,6 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    // 控制是否折叠菜单栏
+    isCollapse: false,
     // 全部菜单
     menu: [],
     // 点击菜单
@@ -30,9 +32,14 @@ export default new Vuex.Store({
         state.currentMenu = null
       }
     },
+    // 点击删除标签按钮
     closeTab(state, value) {
       let result = state.tabList.findIndex(item => item.name === value.name)
       state.tabList.splice(result, 1)
+    },
+    // 折叠菜单
+    collapseMenu(state) {
+      state.isCollapse = !state.isCollapse
     }
   },
   actions: {},

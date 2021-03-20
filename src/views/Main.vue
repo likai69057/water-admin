@@ -1,6 +1,6 @@
 <template>
   <el-container style="height: 100%;">
-    <el-aside width="200px">
+    <el-aside width="auto">
       <common-aside></common-aside>
     </el-aside>
     <el-container>
@@ -8,7 +8,9 @@
         <common-header></common-header>
       </el-header>
       <component-tab></component-tab>
-      <el-main>Main</el-main>
+      <el-main>
+        <router-view />
+      </el-main>
     </el-container>
   </el-container>
 </template>
@@ -26,9 +28,12 @@ export default {
   }
 }
 </script>
-
 <style scoped lang="scss">
 .el-header {
   background-color: #333;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>

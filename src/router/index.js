@@ -3,6 +3,15 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
+// 优化： 同一路由重复点击跳转的时候会报错 解决报错问题
+
+//获取原型对象上的push函数
+const originalPush = VueRouter.prototype.push
+//修改原型对象中的push方法
+VueRouter.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
+
 const routes = [
   {
     path: '/',

@@ -7,6 +7,7 @@
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
+    :collapse="isCollage"
   >
     <el-menu-item :index="item.path" v-for="item in noChildren" :key="item.path" @click="clickMenu(item)">
       <i :class="`el-icon-${item.icon}`"></i>
@@ -77,6 +78,10 @@ export default {
     },
     hasChildren() {
       return this.asideMenu.filter(item => item.children)
+    },
+    // 获取store里的控制侧边栏是否折叠的属性isCollapse
+    isCollage() {
+      return this.$store.state.isCollapse
     }
   },
   methods: {
@@ -87,7 +92,12 @@ export default {
       console.log(key, keyPath)
     },
     clickMenu(item) {
-      this.$store.commit('selectMenu', item)
+      // 点击导航后路由跳转并且将点击的对象item发射给store里进行存储
+      // 判断当前页面是否重复点击
+      if (this.$route.name !== item.name) {
+        this.$router.push({ name: item.name })
+        this.$store.commit('selectMenu', item)
+      }
     }
   }
 }
